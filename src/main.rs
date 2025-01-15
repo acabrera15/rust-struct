@@ -128,7 +128,7 @@ fn update_employee(employees: &mut Vec<Employee>) {
         break;
     }
 
-    if let Some(found_employee) = employees.iter().find(|&x| x.id == employee_id_num) {
+    if let Some(found_employee) = employees.iter_mut().find(|x| x.id == employee_id_num) {
         println!("Enter the number of the value you like to update?");
         println!("1. name: {}", found_employee.name);
         println!("2. department: {}", found_employee.department);
@@ -159,11 +159,25 @@ fn update_employee(employees: &mut Vec<Employee>) {
         }
 
         if item_to_change_num == 1 {
-            println!("changing name");
+            println!("Enter a new name");
+            let mut new_name = String::new();
+
+            io::stdin()
+                .read_line(&mut new_name)
+                .expect("Unable to read line");
+
+            found_employee.name = new_name;
         } else if item_to_change_num == 2 {
-            println!("changing department");
+            println!("Enter a new department");
+            let mut new_department = String::new();
+            io::stdin()
+                .read_line(&mut new_department)
+                .expect("Unable to read line");
+
+            found_employee.department = new_department;
         } else if item_to_change_num == 3 {
-            println!("changing Salary");
+            println!("Enter a new salary");
+            let mut new_salary = String::new();
         }
     } else {
         println!("An employee with id: {} as not found. Please look at the employee list to use a valid ID", employee_id);
