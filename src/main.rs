@@ -176,9 +176,37 @@ fn update_employee(employees: &mut Vec<Employee>) {
 
             found_employee.department = new_department;
         } else if item_to_change_num == 3 {
-            println!("Enter a new salary");
-            let mut new_salary = String::new();
+            let new_salary_num: f64;
+
+            loop {
+                println!("Enter a new salary");
+                let mut new_salary = String::new();
+
+                io::stdin()
+                    .read_line(&mut new_salary)
+                    .expect("Unable to read line");
+
+                match new_salary.trim().parse() {
+                    Ok(num) => new_salary_num = num,
+                    Err(_) => {
+                        println!("Please enter a valid number");
+                        continue;
+                    }
+                }
+                break;
+            }
+
+            found_employee.salary = new_salary_num;
         }
+
+        println!("The new employee looks like: ");
+        println!(
+            "name: {} id: {} department: {} salary: {}",
+            found_employee.name,
+            found_employee.id,
+            found_employee.department,
+            found_employee.salary
+        )
     } else {
         println!("An employee with id: {} as not found. Please look at the employee list to use a valid ID", employee_id);
     }
