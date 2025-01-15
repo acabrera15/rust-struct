@@ -57,7 +57,7 @@ fn create_employee() -> Employee {
         .read_line(&mut employee_name)
         .expect("Unable to read line");
 
-    // capture department name
+    // capture department namecreate
     println!("\nEnter department name");
     let mut department_name = String::new();
     io::stdin()
@@ -98,5 +98,32 @@ fn list_employees(employees: &Vec<Employee>) {
             "Name: {}, ID: {}, Salary: {}, Department: {}",
             employee.name, employee.id, employee.salary, employee.department
         )
+    }
+}
+
+fn update_employee(employees: &mut Vec<Employee>) {
+    let mut employee_id = String::new();
+    let mut employee_id_num: u32;
+    // get use input
+    loop {
+        println!("Enter employee's id you would like to update");
+        io::stdin()
+            .read_line(&mut employee_id)
+            .expect("Unable to read line");
+
+        match employee_id.trim().parse() {
+            Ok(num) => employee_id_num = num,
+            Err(_) => {
+                println!("Please enter a valid numbed");
+                continue;
+            }
+        }
+
+        break;
+    }
+
+    if let Some(found_employee) = employees.iter().find(|&x| x.id == employee_id_num) {
+    } else {
+        println!("An employee with id: {} as not found. Please look at the employee list to use a valid ID", employee_id);
     }
 }
