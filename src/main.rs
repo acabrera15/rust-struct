@@ -6,46 +6,6 @@ struct Employee {
     salary: f64,
 }
 
-struct Department {
-    name: String,
-    employees: Vec<Employee>,
-}
-// fn main() {
-//     let departments: Vec<Department>;
-//     println!("welcome to my employee program");
-//     println!("Employee Database");
-//     println!("-----------------");
-//     loop {
-//         // Options
-//         println!("1. Add Employee");
-//         println!("2. List All Employees");
-//         println!("3. Update Employee");
-//         println!("4. Filter Employees by Department");
-//         println!("5. Exit");
-
-//         // Handle user input
-//         let mut user_option = String::new();
-//         io::stdin()
-//             .read_line(&mut user_option)
-//             .expect("Please input a number ");
-
-//         let user_option: u8 = match user_option.trim().parse() {
-//             Ok(num) => {
-//                 if num < 1 || num > 5 {
-//                     println!("Enter values 1-5");
-//                     continue;
-//                 } else {
-//                     num
-//                 }
-//             }
-//             Err(_) => {
-//                 println!("Enter a value 1-5");
-//                 continue;
-//             }
-//         };
-//     }
-// }
-
 fn main() {
     let mut employees = vec![Employee {
         name: String::from("Andrew"),
@@ -53,8 +13,52 @@ fn main() {
         department: String::from("Business"),
         salary: 10000.00,
     }];
-    update_employee(&mut employees);
+    println!("welcome to my employee program");
+    println!("Employee Database");
+    println!("-----------------");
+    loop {
+        // Options
+        println!("1. Add Employee");
+        println!("2. List All Employees");
+        println!("3. Update Employee");
+        println!("4. Filter Employees by Department");
+        println!("5. Exit");
+
+        // Handle user input
+        let mut user_option = String::new();
+        io::stdin()
+            .read_line(&mut user_option)
+            .expect("Please input a number ");
+
+        let user_option: u8 = match user_option.trim().parse() {
+            Ok(num) => {
+                if num < 1 || num > 5 {
+                    println!("Enter values 1-5");
+                    continue;
+                } else {
+                    num
+                }
+            }
+            Err(_) => {
+                println!("Enter a value 1-5");
+                continue;
+            }
+        };
+
+        if user_option == 1 {
+            employees.push(create_employee());
+        } else if user_option == 2 {
+            list_employees(&employees);
+        } else if user_option == 3 {
+            update_employee(&mut employees);
+        } else if user_option == 4 {
+        } else if user_option == 5 {
+            println!("Goodbye!");
+            return;
+        }
+    }
 }
+
 fn create_employee() -> Employee {
     // capture name
     println!("Enter employee's name");
@@ -210,4 +214,12 @@ fn update_employee(employees: &mut Vec<Employee>) {
     } else {
         println!("An employee with id: {} as not found. Please look at the employee list to use a valid ID", employee_id);
     }
+}
+
+fn list_by_department(employees: &Vec<Employee>) {
+    let mut entered_department = String::new();
+
+    io::stdin()
+        .read_line(&mut entered_department)
+        .expect("Unable to read string");
 }
