@@ -52,6 +52,7 @@ fn main() {
         } else if user_option == 3 {
             update_employee(&mut employees);
         } else if user_option == 4 {
+            list_by_department(&employees);
         } else if user_option == 5 {
             println!("Goodbye!");
             return;
@@ -222,4 +223,22 @@ fn list_by_department(employees: &Vec<Employee>) {
     io::stdin()
         .read_line(&mut entered_department)
         .expect("Unable to read string");
+
+    let entered_department = entered_department.trim().to_ascii_lowercase();
+
+    let mut found_any = false;
+
+    for employee in employees {
+        if employee.department.to_ascii_lowercase() == entered_department {
+            println!("Name: {}", employee.name);
+            println!("ID: {}", employee.id);
+            println!("Department: {}", employee.department);
+            println!("Salary: {}", employee.salary);
+            found_any = true;
+        }
+    }
+
+    if !found_any {
+        println!("No employees found with department: {}", entered_department);
+    }
 }
